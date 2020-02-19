@@ -21,9 +21,7 @@ let images = new Images();
 const move = {
     RIGHT: 'RIGHT',
     LEFT: 'LEFT',
-    CROUCH: 'CROUCH',
-    STAND: 'STAND',
-    PUNCH: 'PUNCH',
+    CROUCH: 'CROUCH'
 };
 
 class Person {
@@ -33,8 +31,8 @@ class Person {
         this.vel = 0;
         this.acc = 0;
         this.movement =
-        this.status = status.IDLE;
-        this.ground = h - sprite.STAND.LEFT.height;
+            this.status = status.IDLE;
+        this.ground = h - images.move_l.height;
         this.pos = createVector(x, y);
     }
 
@@ -75,14 +73,14 @@ class Person {
         if (keyIsDown(65)) isAttacking = true;
         switch (this.movement) {
             case move.RIGHT:
-                if (isAttacking) return sprite.PUNCH.RIGHT;
-                if (isCrouch) return sprite.CROUCH.RIGHT;
-                return sprite.STAND.RIGHT;
+                if (isAttacking) return images.punch_r;
+                if (isCrouch) return images.crouch_r;
+                return images.move_r;
             case move.LEFT:
             default:
-                if (isAttacking) return sprite.PUNCH.LEFT;
-                if (isCrouch) return sprite.CROUCH.LEFT;
-                return sprite.STAND.LEFT;
+                if (isAttacking) return images.punch_l;
+                if (isCrouch) return images.crouch_l;
+                return images.move_l;
         }
     }
 
@@ -94,28 +92,17 @@ class Person {
 }
 
 function preload() {
-    img = loadImage('assets/papa.png');
-    bg = loadImage('assets/bg.jpg');
+    img = loadImage('papa.png');
+    bg = loadImage('bg.jpg');
 }
 
 function setup() {
-    img.resize(2*h/5, 3*h/5);
-    let size = img.width/2;
-    sprite = {
-        STAND : {
-            RIGHT : img.get(0*size,0,size,size),
-            LEFT : img.get(1*size,0,size,size),
-        },
-        PUNCH : {
-            RIGHT : img.get(0*size,1*size,size,size),
-            LEFT : img.get(1*size,1*size,size,size),
-        },
-        CROUCH : {
-            RIGHT : img.get(0*size,2*size,size,size),
-            LEFT : img.get(1*size,2*size,size,size),
-        },
-    }
-
+    images.move_r = img.get(0, 0, 100, 100);
+    images.move_l = img.get(100, 0, 100, 100);
+    images.punch_r = img.get(0, 100, 100, 100);
+    images.punch_l = img.get(100, 100, 100, 100);
+    images.crouch_r = img.get(0, 200, 100, 100);
+    images.crouch_l = img.get(100, 200, 100, 100);
     person = new Person(50, 50);
     createCanvas(w, h);
 }
