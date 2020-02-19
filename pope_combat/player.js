@@ -2,7 +2,6 @@ class Person {
     constructor(x, y, sprite, size) {
         this.sprite = sprite;
         this.pos = createVector(x, y);
-        this.size = size;
         
         this.movements = {
             RIGHT: 'RIGHT',
@@ -19,7 +18,7 @@ class Person {
         this.acc = 0;
         
         this.status = status.IDLE;
-        this.ground = h - this.size;
+        this.ground = h - size;
     }
 
     move() {
@@ -32,7 +31,7 @@ class Person {
             this.pos.x += 2;
         }
         if (keyIsDown(UP_ARROW)) {
-            if (!this.isJumping) this.acc = -(10*(this.size/100));
+            if (!this.isJumping) this.acc = -10;
         } 
 
         this.action = this.movements.STAND;
@@ -44,7 +43,7 @@ class Person {
         }
 
         //update position
-        this.acc += gravity*(this.size/100);
+        this.acc += gravity;
         this.vel = this.acc;
         this.pos.y += this.vel;
         if (this.pos.y >= this.ground) {
