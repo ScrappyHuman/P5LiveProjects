@@ -1,11 +1,18 @@
 let w = innerWidth;
 let h = w/2;
+let bgccolor = 220;
+let person;
 let gravity = 0.5;
-
 let img;
 let bg;
-let person;
 
+const move = {
+    RIGHT: 'RIGHT',
+    LEFT: 'LEFT',
+    CROUCH: 'CROUCH',
+    STAND: 'STAND',
+    PUNCH: 'PUNCH',
+};
 
 function preload() {
     img = loadImage('assets/papa.png');
@@ -30,7 +37,7 @@ function setup() {
         },
     }
 
-    person = new Person(50, 50, sprite, size);
+    person = new Person(50, 50);
     createCanvas(w, h);
 }
 
